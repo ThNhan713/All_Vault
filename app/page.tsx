@@ -3,6 +3,8 @@
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { Authenticated, AuthLoading, AuthRefreshing, Unauthenticated, useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Button } from "../components/ui/button";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 export default function Home() {
   const documents = useQuery(api.documents.getDocuments)
@@ -16,7 +18,8 @@ export default function Home() {
         </Unauthenticated>
         <Authenticated>
           <UserButton />
-          <button onClick={() => { createDocument({ title: "test doc" }) }}>Test create docs</button>
+          <ModeToggle />
+          <Button onClick={() => { createDocument({ title: "test doc" }) }}>Test create docs</Button>
           {documents?.map((document) => <div key={document._id}>{document.title}</div>)}
         </Authenticated>
         <AuthLoading>
